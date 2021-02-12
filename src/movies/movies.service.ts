@@ -15,4 +15,12 @@ export class MoviesService {
     async create(movieData: CreateMovieDto) {
         this.movieModel.create(movieData)
     }
+
+    async findOne(movieId : string) : Promise<Movie> {
+        return this.movieModel.findById(movieId).exec()
+    }
+
+    async delete(movieId : string) {
+        this.movieModel.findByIdAndDelete(movieId).exec()
+    }
 }
