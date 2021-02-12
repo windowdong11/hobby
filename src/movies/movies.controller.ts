@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { runInThisContext } from 'node:vm';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 import { MoviesService } from './movies.service';
-import { Movie, MovieDocument } from './schemas/movie.schemas';
+import { ObjectIdPipe } from './pipes/objectid.pipe';
+import { Movie } from './schemas/movie.schemas';
 
 @Controller('movies')
 export class MoviesController {
@@ -14,16 +15,21 @@ export class MoviesController {
 
     @Post()
     async create(@Body() movieData: CreateMovieDto){
-        await this.moviesService.create(movieData)
+        return await this.moviesService.create(movieData)
     }
 
     @Get('/:id')
-    async findOne(@Param('id') movieId: string){
+    async findOne(@Param('id', ObjectIdPipe) movieId: string){
         return await this.moviesService.findOne(movieId)
     }
 
     @Delete('/:id')
-    async delete(@Param('id') movieId: string){
-        await this.moviesService.delete(movieId)
+    async delete(@Param('id', ObjectIdPipe) movieId: string){
+        return await this.moviesService.delete(movieId)
+    }
+
+    @Patch('/:id')
+    async update(@Param('id', ObjectIdPipe) movieId : string, @Body() movieData : UpdateMovieDto){
+        return this.moviesService.update(movieId, movieData)
     }
 }

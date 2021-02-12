@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie, MovieDocument } from './schemas/movie.schemas';
 
 @Injectable()
@@ -13,7 +14,7 @@ export class MoviesService {
     }
 
     async create(movieData: CreateMovieDto) {
-        this.movieModel.create(movieData)
+        return this.movieModel.create(movieData)
     }
 
     async findOne(movieId : string) : Promise<Movie> {
@@ -21,6 +22,10 @@ export class MoviesService {
     }
 
     async delete(movieId : string) {
-        this.movieModel.findByIdAndDelete(movieId).exec()
+        return this.movieModel.findByIdAndDelete(movieId).exec()
+    }
+
+    async update(movieId : string, movieData : UpdateMovieDto) {
+        return this.movieModel.updateOne({_id : movieId}, movieData).exec()
     }
 }
