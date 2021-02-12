@@ -26,6 +26,16 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## MovieData API
+
+| method | link                     | json                                                              | method |
+|--------|--------------------------|-------------------------------------------------------------------|--------|
+| get    | localhost:3000/movie     | x                                                                 | getAll |
+| get    | localhost:3000/movie/:id | x                                                                 | getOne |
+| post   | localhost:3000/movie     | title:string<br>director:string<br>year:number<br>geners:string[] | create |
+| delete | localhost:3000/movie/:id | x                                                                 | delete |
+| update | localhost:3000/movie/:id | title:string<br>director:string<br>year:number<br>geners:string[] | update |
+
 ## Installation
 
 ```bash
